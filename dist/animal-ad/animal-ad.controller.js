@@ -8,20 +8,55 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnimalAdController = void 0;
 const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const path_1 = require("path");
 const animal_ad_service_1 = require("./animal-ad.service");
 let AnimalAdController = class AnimalAdController {
     animalAdService;
     constructor(animalAdService) {
         this.animalAdService = animalAdService;
     }
+    async uploadFile(file, body) {
+        const { name, gender, age, info1, info2, description } = body;
+        return await this.animalAdService.createAd({
+            name,
+            gender,
+            age,
+            info1,
+            info2,
+            description,
+            image: `/images/${file.filename}`
+        });
+    }
     async getAds() {
         return await this.animalAdService.getAds();
     }
 };
 exports.AnimalAdController = AnimalAdController;
+__decorate([
+    (0, common_1.Post)('upload'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './images',
+            filename: (req, file, cb) => {
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+                cb(null, uniqueSuffix + (0, path_1.extname)(file.originalname));
+            }
+        }),
+    })),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AnimalAdController.prototype, "uploadFile", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

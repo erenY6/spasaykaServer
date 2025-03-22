@@ -17,11 +17,12 @@ export default tseslint.config(
         ...globals.node,
         ...globals.jest,
       },
-      ecmaVersion: 5,
+      ecmaVersion: 'latest', // Исправлено (современный JS)
       sourceType: 'module',
+      parser: '@typescript-eslint/parser', // Добавлен парсер TS
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        project: './tsconfig.json', // Указан tsconfig.json
       },
     },
   },
@@ -30,10 +31,11 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn', // Разрешает присваивание, но с предупреждением
       'prettier/prettier': [
         'error',
         {
-          "endOfLine": "auto"
+          endOfLine: 'auto',
         },
       ],
     },

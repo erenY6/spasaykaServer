@@ -11,6 +11,9 @@ const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 let AnimalAdService = class AnimalAdService {
     prisma = new client_1.PrismaClient();
+    async createAd(data) {
+        return await this.prisma.animalAd.create({ data });
+    }
     async getAds() {
         return await this.prisma.animalAd.findMany();
     }
