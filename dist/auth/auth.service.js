@@ -20,15 +20,29 @@ let AuthService = class AuthService {
     constructor(jwtService) {
         this.jwtService = jwtService;
     }
-    async register(email, password, name) {
+    async register(name, surname, password, email, phone) {
         const hashed = await bcrypt.hash(password, 10);
         const user = await this.prisma.user.create({
-            data: { email, password: hashed, name },
+            data: {
+                name,
+                surname,
+                password: hashed,
+                email,
+                phone,
+            },
         });
-        return { id: user.id, email: user.email, name: user.name };
+        return { id: user.id, email: user.email, phone: user.phone, name: user.name };
     }
-    async login(email, password) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+    async login(emailOrPhone, password) {
+        const user = await this.prisma.user.findFirst({
+            where: {
+                OR: [
+                    { email: emailOrPhone },
+                    { phone: emailOrPhone },
+                ],
+            },
+        });
+        console.log('Found user:', user);
         if (!user)
             throw new common_1.UnauthorizedException('Пользователь не найден');
         const match = await bcrypt.compare(password, user.password);

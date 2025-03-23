@@ -27,8 +27,11 @@ model AnimalAd {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  email    String   @unique
+  id       String  @id @default(uuid())
+  name     String
+  surname  String? 
+  email    String? @unique
+  phone    String? @unique
   password String
-  name     String?
 }
+

@@ -1,20 +1,33 @@
+import { Request } from 'express';
 import { AuthService } from './auth.service';
+import { JwtService } from '@nestjs/jwt';
 export declare class AuthController {
     private authService;
-    constructor(authService: AuthService);
+    private jwtService;
+    constructor(authService: AuthService, jwtService: JwtService);
     register(body: {
-        email: string;
+        name: string;
+        surname: string;
+        email?: string;
+        phone?: string;
         password: string;
-        name?: string;
     }): Promise<{
         id: string;
-        email: string;
-        name: string | null;
+        email: string | null;
+        phone: string | null;
+        name: string;
     }>;
     login(body: {
-        email: string;
+        emailOrPhone: string;
         password: string;
     }): Promise<{
         token: string;
+    }>;
+    getMe(req: Request): Promise<{
+        id: string;
+        name: string;
+        surname: string | null;
+        email: string | null;
+        phone: string | null;
     }>;
 }

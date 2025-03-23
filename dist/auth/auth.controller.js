@@ -15,16 +15,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
+const jwt_1 = require("@nestjs/jwt");
 let AuthController = class AuthController {
     authService;
-    constructor(authService) {
+    jwtService;
+    constructor(authService, jwtService) {
         this.authService = authService;
+        this.jwtService = jwtService;
     }
     async register(body) {
-        return await this.authService.register(body.email, body.password, body.name);
+        return await this.authService.register(body.name, body.surname, body.password, body.email, body.phone);
     }
     async login(body) {
-        return await this.authService.login(body.email, body.password);
+        return await this.authService.login(body.emailOrPhone, body.password);
+    }
+    async getMe(req) {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            throw new common_1.UnauthorizedException('Нет токена');
+        }
+        const token = authHeader.split(' ')[1];
+        try {
+            const payload = this.jwtService.verify(token);
+            const user = await this.authService['prisma'].user.findUnique({
+                where: { id: payload.sub },
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    email: true,
+                    phone: true,
+                },
+            });
+            if (!user) {
+                throw new common_1.UnauthorizedException('Пользователь не найден');
+            }
+            return user;
+        }
+        catch (e) {
+            throw new common_1.UnauthorizedException('Неверный токен');
+        }
     }
 };
 exports.AuthController = AuthController;
@@ -42,8 +72,16 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Get)('me'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "getMe", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        jwt_1.JwtService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map
