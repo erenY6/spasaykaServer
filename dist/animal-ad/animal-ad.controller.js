@@ -23,8 +23,10 @@ let AnimalAdController = class AnimalAdController {
     constructor(animalAdService) {
         this.animalAdService = animalAdService;
     }
-    async uploadFile(file, body) {
-        const { name, gender, age, info1, info2, description } = body;
+    async uploadFiles(files, body) {
+        const { name, gender, age, info1, info2, description, fullDesc, authorId, tagIds } = body;
+        const imageUrls = files.map(file => `/images/${file.filename}`);
+        const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
         return await this.animalAdService.createAd({
             name,
             gender,
@@ -32,17 +34,23 @@ let AnimalAdController = class AnimalAdController {
             info1,
             info2,
             description,
-            image: `/images/${file.filename}`
+            fullDesc,
+            authorId,
+            imageUrls,
+            tagIds: tagIdArray
         });
     }
     async getAds() {
         return await this.animalAdService.getAds();
     }
+    async getAdById(id) {
+        return this.animalAdService.getAdById(id);
+    }
 };
 exports.AnimalAdController = AnimalAdController;
 __decorate([
     (0, common_1.Post)('upload'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images', 5, {
         storage: (0, multer_1.diskStorage)({
             destination: './images',
             filename: (req, file, cb) => {
@@ -51,18 +59,25 @@ __decorate([
             }
         }),
     })),
-    __param(0, (0, common_1.UploadedFile)()),
+    __param(0, (0, common_1.UploadedFiles)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Array, Object]),
     __metadata("design:returntype", Promise)
-], AnimalAdController.prototype, "uploadFile", null);
+], AnimalAdController.prototype, "uploadFiles", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AnimalAdController.prototype, "getAds", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AnimalAdController.prototype, "getAdById", null);
 exports.AnimalAdController = AnimalAdController = __decorate([
     (0, common_1.Controller)('animal-ad'),
     __metadata("design:paramtypes", [animal_ad_service_1.AnimalAdService])

@@ -26,8 +26,8 @@ export declare class AuthController {
     getMe(req: Request): Promise<{
         id: string;
         name: string;
-        surname: string | null;
         email: string | null;
         phone: string | null;
+        surname: string | null;
     }>;
 }

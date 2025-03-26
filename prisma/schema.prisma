@@ -15,23 +15,44 @@ datasource db {
 
 
 model AnimalAd {
-  id          String  @id @default(uuid()) 
-  name        String  
-  gender      String  
-  age         String  
-  info1       String? 
-  info2       String? 
-  description String? 
-  image       String  
-  createdAt   DateTime @default(now()) 
+  id             String        @id @default(uuid())
+  name           String
+  gender         String
+  age            String
+  info1          String?
+  info2          String?
+  description      String?     
+  fullDesc       String?    
+  createdAt      DateTime      @default(now())
+
+  images         AnimalImage[] 
+  tags           AnimalTag[]   @relation("AdTags")
+  
+  authorId       String?
+  author         User?          @relation(fields: [authorId], references: [id])
+}
+
+model AnimalImage {
+  id        String   @id @default(uuid())
+  url       String
+  adId      String
+  ad        AnimalAd @relation(fields: [adId], references: [id])
+}
+
+model AnimalTag {
+  id        String      @id @default(uuid())
+  label     String      
+  ads       AnimalAd[]  @relation("AdTags")
 }
 
 model User {
-  id       String  @id @default(uuid())
+  id       String     @id @default(uuid())
   name     String
-  surname  String? 
-  email    String? @unique
-  phone    String? @unique
+  surname  String?
+  email    String?    @unique
+  phone    String?    @unique
   password String
+  ads      AnimalAd[] 
 }
+
 
