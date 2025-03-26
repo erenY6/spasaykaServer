@@ -25,6 +25,7 @@ export declare class AnimalAdController {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -55,6 +56,7 @@ export declare class AnimalAdController {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -85,6 +87,7 @@ export declare class AnimalAdController {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;

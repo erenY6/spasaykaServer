@@ -19,6 +19,7 @@ model AnimalAd {
   name           String
   gender         String
   age            String
+  address        String?
   info1          String?
   info2          String?
   description      String?     

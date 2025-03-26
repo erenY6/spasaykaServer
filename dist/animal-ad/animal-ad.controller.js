@@ -24,13 +24,14 @@ let AnimalAdController = class AnimalAdController {
         this.animalAdService = animalAdService;
     }
     async uploadFiles(files, body) {
-        const { name, gender, age, info1, info2, description, fullDesc, authorId, tagIds } = body;
+        const { name, gender, age, info1, info2, address, description, fullDesc, authorId, tagIds } = body;
         const imageUrls = files.map(file => `/images/${file.filename}`);
         const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
         return await this.animalAdService.createAd({
             name,
             gender,
             age,
+            address,
             info1,
             info2,
             description,

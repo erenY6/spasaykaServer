@@ -6,6 +6,7 @@ export declare class AnimalAdService {
         age: string;
         info1?: string;
         info2?: string;
+        address?: string;
         description?: string;
         fullDesc?: string;
         imageUrls: string[];
@@ -34,6 +35,7 @@ export declare class AnimalAdService {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -64,6 +66,7 @@ export declare class AnimalAdService {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -94,6 +97,7 @@ export declare class AnimalAdService {
         name: string;
         gender: string;
         age: string;
+        address: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;

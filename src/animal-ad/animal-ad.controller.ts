@@ -30,7 +30,7 @@ export class AnimalAdController {
     @UploadedFiles() files: Express.Multer.File[],
     @Body() body
   ) {
-    const { name, gender, age, info1, info2, description, fullDesc, authorId, tagIds } = body;
+    const { name, gender, age, info1, info2, address, description, fullDesc, authorId, tagIds } = body;
     
 
     const imageUrls = files.map(file => `/images/${file.filename}`);
@@ -43,6 +43,7 @@ export class AnimalAdController {
       name,
       gender,
       age,
+      address,
       info1,
       info2,
       description,

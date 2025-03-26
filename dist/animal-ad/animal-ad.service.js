@@ -19,6 +19,7 @@ let AnimalAdService = class AnimalAdService {
                 age: data.age,
                 info1: data.info1,
                 info2: data.info2,
+                address: data.address,
                 description: data.description,
                 fullDesc: data.fullDesc,
                 author: { connect: { id: data.authorId } },

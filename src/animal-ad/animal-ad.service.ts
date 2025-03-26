@@ -11,6 +11,7 @@ export class AnimalAdService {
     age: string;
     info1?: string;
     info2?: string;
+    address?: string;
     description?: string;
     fullDesc?: string;
     imageUrls: string[]; // массив путей картинок
@@ -24,6 +25,7 @@ export class AnimalAdService {
         age: data.age,
         info1: data.info1,
         info2: data.info2,
+        address: data.address,
         description: data.description,
         fullDesc: data.fullDesc,
         author: { connect: { id: data.authorId } },
