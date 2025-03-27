@@ -56,6 +56,16 @@ let AnimalAdService = class AnimalAdService {
             }
         });
     }
+    async getAdsByAuthor(authorId) {
+        return await this.prisma.animalAd.findMany({
+            where: { authorId },
+            include: {
+                images: true,
+                tags: true,
+                author: true
+            }
+        });
+    }
 };
 exports.AnimalAdService = AnimalAdService;
 exports.AnimalAdService = AnimalAdService = __decorate([

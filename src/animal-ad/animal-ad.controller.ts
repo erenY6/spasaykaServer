@@ -63,4 +63,9 @@ export class AnimalAdController {
   async getAdById(@Param('id') id: string) {
     return this.animalAdService.getAdById(id)
 }
+
+@Get('by-author/:authorId')
+async getAdsByAuthor(@Param('authorId') authorId: string) {
+  return await this.animalAdService.getAdsByAuthor(authorId);
+}
 }

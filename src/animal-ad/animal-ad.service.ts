@@ -64,4 +64,15 @@ export class AnimalAdService {
       }
     })
   }
+
+  async getAdsByAuthor(authorId: string) {
+    return await this.prisma.animalAd.findMany({
+      where: { authorId },
+      include: {
+        images: true,
+        tags: true,
+        author: true
+      }
+    });
+  }
 }

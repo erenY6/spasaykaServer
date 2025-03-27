@@ -47,6 +47,9 @@ let AnimalAdController = class AnimalAdController {
     async getAdById(id) {
         return this.animalAdService.getAdById(id);
     }
+    async getAdsByAuthor(authorId) {
+        return await this.animalAdService.getAdsByAuthor(authorId);
+    }
 };
 exports.AnimalAdController = AnimalAdController;
 __decorate([
@@ -79,6 +82,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnimalAdController.prototype, "getAdById", null);
+__decorate([
+    (0, common_1.Get)('by-author/:authorId'),
+    __param(0, (0, common_1.Param)('authorId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AnimalAdController.prototype, "getAdsByAuthor", null);
 exports.AnimalAdController = AnimalAdController = __decorate([
     (0, common_1.Controller)('animal-ad'),
     __metadata("design:paramtypes", [animal_ad_service_1.AnimalAdService])
