@@ -12,4 +12,19 @@ export declare class AuthService {
     login(emailOrPhone: string, password: string): Promise<{
         token: string;
     }>;
+    updateUser(id: string, data: {
+        name: string;
+        surname: string;
+        email?: string;
+        phone?: string;
+        avatar?: string;
+    }): Promise<{
+        id: string;
+        name: string;
+        email: string | null;
+        phone: string | null;
+        surname: string | null;
+        password: string;
+        avatar: string | null;
+    }>;
 }

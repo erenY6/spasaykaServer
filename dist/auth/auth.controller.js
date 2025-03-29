@@ -14,6 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const uuid_1 = require("uuid");
+const path_1 = require("path");
 const auth_service_1 = require("./auth.service");
 const jwt_1 = require("@nestjs/jwt");
 let AuthController = class AuthController {
@@ -45,6 +49,7 @@ let AuthController = class AuthController {
                     surname: true,
                     email: true,
                     phone: true,
+                    avatar: true,
                 },
             });
             if (!user) {
@@ -55,6 +60,17 @@ let AuthController = class AuthController {
         catch (e) {
             throw new common_1.UnauthorizedException('Неверный токен');
         }
+    }
+    async updateUser(req, avatarFile, body) {
+        const token = req.headers.authorization?.split(' ')[1];
+        if (!token)
+            throw new common_1.UnauthorizedException('Нет токена');
+        const payload = this.jwtService.verify(token);
+        const avatar = avatarFile?.filename;
+        return this.authService.updateUser(payload.sub, {
+            ...body,
+            avatar,
+        });
     }
 };
 exports.AuthController = AuthController;
@@ -79,6 +95,24 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Put)('update'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './images',
+            filename: (req, file, cb) => {
+                const uniqueName = `${(0, uuid_1.v4)()}${(0, path_1.extname)(file.originalname)}`;
+                cb(null, uniqueName);
+            },
+        }),
+    })),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.UploadedFile)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "updateUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,

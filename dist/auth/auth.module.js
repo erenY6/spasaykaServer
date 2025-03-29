@@ -19,7 +19,7 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             jwt_1.JwtModule.register({
                 secret: 'spasayka-secret',
-                signOptions: { expiresIn: '1d' },
+                signOptions: { expiresIn: '3d' },
             }),
         ],
         providers: [auth_service_1.AuthService],

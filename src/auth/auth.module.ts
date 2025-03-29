@@ -7,7 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     JwtModule.register({
       secret: 'spasayka-secret',
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '3d' },
     }),
   ],
   providers: [AuthService],

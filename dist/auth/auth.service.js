@@ -52,6 +52,18 @@ let AuthService = class AuthService {
         const token = this.jwtService.sign(payload);
         return { token };
     }
+    async updateUser(id, data) {
+        return this.prisma.user.update({
+            where: { id },
+            data: {
+                name: data.name,
+                surname: data.surname,
+                email: data.email,
+                phone: data.phone,
+                ...(data.avatar ? { avatar: data.avatar } : {}),
+            },
+        });
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

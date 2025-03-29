@@ -29,6 +29,7 @@ export declare class AnimalAdService {
             phone: string | null;
             surname: string | null;
             password: string;
+            avatar: string | null;
         } | null;
     } & {
         id: string;
@@ -60,6 +61,7 @@ export declare class AnimalAdService {
             phone: string | null;
             surname: string | null;
             password: string;
+            avatar: string | null;
         } | null;
     } & {
         id: string;
@@ -91,6 +93,7 @@ export declare class AnimalAdService {
             phone: string | null;
             surname: string | null;
             password: string;
+            avatar: string | null;
         } | null;
     } & {
         id: string;
@@ -122,6 +125,7 @@ export declare class AnimalAdService {
             phone: string | null;
             surname: string | null;
             password: string;
+            avatar: string | null;
         } | null;
     } & {
         id: string;

@@ -52,5 +52,19 @@ export class AuthService {
   
     return { token };
   }
+
+  async updateUser(id: string, data: { name: string; surname: string; email?: string; phone?: string; avatar?: string }) {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        name: data.name,
+        surname: data.surname,
+        email: data.email,
+        phone: data.phone,
+        ...(data.avatar ? { avatar: data.avatar } : {}),
+      },
+    })
+  }
+  
 }
 

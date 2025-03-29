@@ -1,6 +1,6 @@
-import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 export declare class AuthController {
     private authService;
     private jwtService;
@@ -26,8 +26,23 @@ export declare class AuthController {
     getMe(req: Request): Promise<{
         id: string;
         name: string;
+        surname: string | null;
         email: string | null;
         phone: string | null;
+        avatar: string | null;
+    }>;
+    updateUser(req: Request, avatarFile: Express.Multer.File, body: {
+        name: string;
+        surname: string;
+        email?: string;
+        phone?: string;
+    }): Promise<{
+        id: string;
+        name: string;
         surname: string | null;
+        email: string | null;
+        phone: string | null;
+        password: string;
+        avatar: string | null;
     }>;
 }
