@@ -14,12 +14,13 @@ const animal_ad_service_1 = require("./animal-ad/animal-ad.service");
 const animal_ad_controller_1 = require("./animal-ad/animal-ad.controller");
 const animal_ad_module_1 = require("./animal-ad/animal-ad.module");
 const auth_module_1 = require("./auth/auth.module");
+const dialogue_module_1 = require("./dialogue/dialogue.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [animal_ad_module_1.AnimalAdModule, auth_module_1.AuthModule],
+        imports: [animal_ad_module_1.AnimalAdModule, auth_module_1.AuthModule, dialogue_module_1.DialogueModule],
         controllers: [app_controller_1.AppController, animal_ad_controller_1.AnimalAdController],
         providers: [app_service_1.AppService, animal_ad_service_1.AnimalAdService],
     })

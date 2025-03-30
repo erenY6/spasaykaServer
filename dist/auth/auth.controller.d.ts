@@ -26,9 +26,9 @@ export declare class AuthController {
     getMe(req: Request): Promise<{
         id: string;
         name: string;
-        surname: string | null;
         email: string | null;
         phone: string | null;
+        surname: string | null;
         avatar: string | null;
     }>;
     updateUser(req: Request, avatarFile: Express.Multer.File, body: {
@@ -39,9 +39,9 @@ export declare class AuthController {
     }): Promise<{
         id: string;
         name: string;
-        surname: string | null;
         email: string | null;
         phone: string | null;
+        surname: string | null;
         password: string;
         avatar: string | null;
     }>;

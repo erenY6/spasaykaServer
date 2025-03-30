@@ -55,6 +55,31 @@ model User {
   password String
   avatar    String?
   ads      AnimalAd[] 
+  dialogues1 Dialogue[] @relation("User1")
+  dialogues2 Dialogue[] @relation("User2")
+  dialogues3 Message[] @relation("SenderChat")
+}
+
+model Dialogue {
+  id        String   @id @default(uuid())
+  user1Id   String
+  user1     User     @relation("User1", fields: [user1Id], references: [id])
+  user2Id   String
+  user2     User     @relation("User2", fields: [user2Id], references: [id])
+  messages  Message[]
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+  senderId   String
+  sender     User     @relation("SenderChat", fields: [senderId], references: [id])
+  dialogueId String
+  dialogue   Dialogue @relation(fields: [dialogueId], references: [id])
+  isRead     Boolean  @default(false)
+  readAt     DateTime?
 }
 
 
