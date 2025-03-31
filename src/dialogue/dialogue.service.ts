@@ -17,8 +17,13 @@ export class DialogueService {
         user1: true,
         user2: true,
         messages: {
-          orderBy: { createdAt: 'asc' },
+          orderBy: { createdAt: 'desc' },
           take: 1,
+          select: {
+            content: true,
+            createdAt: true,
+            senderId: true,
+          },
         },
       },
       orderBy: { updatedAt: 'desc' },

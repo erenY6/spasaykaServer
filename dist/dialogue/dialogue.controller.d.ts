@@ -22,13 +22,9 @@ export declare class DialogueController {
             avatar: string | null;
         };
         messages: {
-            id: string;
             createdAt: Date;
             content: string;
             senderId: string;
-            dialogueId: string;
-            isRead: boolean;
-            readAt: Date | null;
         }[];
     } & {
         id: string;
