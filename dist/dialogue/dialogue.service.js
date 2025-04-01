@@ -12,7 +12,7 @@ const client_1 = require("@prisma/client");
 let DialogueService = class DialogueService {
     prisma = new client_1.PrismaClient();
     async getUserDialogues(userId) {
-        return await this.prisma.dialogue.findMany({
+        const dialogues = await this.prisma.dialogue.findMany({
             where: {
                 OR: [
                     { user1Id: userId },
@@ -29,11 +29,26 @@ let DialogueService = class DialogueService {
                         content: true,
                         createdAt: true,
                         senderId: true,
+                        isRead: true,
                     },
                 },
             },
             orderBy: { updatedAt: 'desc' },
         });
+        const dialoguesWithUnread = await Promise.all(dialogues.map(async (dialogue) => {
+            const unreadCount = await this.prisma.message.count({
+                where: {
+                    dialogueId: dialogue.id,
+                    senderId: { not: userId },
+                    isRead: false,
+                },
+            });
+            return {
+                ...dialogue,
+                unreadCount,
+            };
+        }));
+        return dialoguesWithUnread;
     }
     async getDialogueMessages(dialogueId) {
         if (!dialogueId)

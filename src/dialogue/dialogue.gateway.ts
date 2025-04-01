@@ -45,6 +45,8 @@ import {
   
       client.broadcast.emit('newMessage', message)
       client.emit('newMessage', message)
+      const dialogues = await this.dialogueService.getUserDialogues(payload.senderId)
+      client.emit('dialoguesList', dialogues)
       
       const dialogue = await this.dialogueService.getDialogueById(payload.dialogueId)
 
@@ -52,13 +54,18 @@ import {
         console.warn('Диалог не найден')
         return
       }
-      
+      // client.broadcast.emit('dialoguesList', dialogues)
       const recipientId =
         dialogue.user1Id === payload.senderId ? dialogue.user2Id : dialogue.user1Id 
   
+        
       const recipientSocket = this.onlineUsers.get(recipientId)
+      console.log(recipientSocket)
       if (recipientSocket) {
         recipientSocket.emit('newMessage', message)
+        console.log(message)
+        const dialogues = await this.dialogueService.getUserDialogues(recipientId)
+        recipientSocket.emit('dialoguesList', dialogues)
       }
   
       client.emit('message_sent', message)
@@ -79,7 +86,17 @@ import {
       },
     ) {
       await this.dialogueService.markMessagesAsRead(payload.dialogueId, payload.readerId)
-
+      const dialogue = await this.dialogueService.getDialogueById(payload.dialogueId)
+      if (!dialogue) return
+    
+      const senderId = dialogue.user1Id === payload.readerId ? dialogue.user2Id : dialogue.user1Id
+      const senderSocket = this.onlineUsers.get(senderId)
+    
+      if (senderSocket) {
+        senderSocket.emit('messageRead', {
+          dialogueId: payload.dialogueId,
+        })
+      }
     }
 
     @SubscribeMessage('getMessages')

@@ -1,6 +1,7 @@
 export declare class DialogueService {
     private prisma;
-    getUserDialogues(userId: string): Promise<({
+    getUserDialogues(userId: string): Promise<{
+        unreadCount: number;
         user1: {
             id: string;
             name: string;
@@ -23,13 +24,13 @@ export declare class DialogueService {
             createdAt: Date;
             content: string;
             senderId: string;
+            isRead: boolean;
         }[];
-    } & {
         id: string;
         user1Id: string;
         user2Id: string;
         updatedAt: Date;
-    })[]>;
+    }[]>;
     getDialogueMessages(dialogueId: string): Promise<({
         sender: {
             id: string;

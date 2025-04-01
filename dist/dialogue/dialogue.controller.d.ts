@@ -2,7 +2,8 @@ import { DialogueService } from './dialogue.service';
 export declare class DialogueController {
     private readonly dialogueService;
     constructor(dialogueService: DialogueService);
-    getUserDialogues(userId: string): Promise<({
+    getUserDialogues(userId: string): Promise<{
+        unreadCount: number;
         user1: {
             id: string;
             name: string;
@@ -25,13 +26,13 @@ export declare class DialogueController {
             createdAt: Date;
             content: string;
             senderId: string;
+            isRead: boolean;
         }[];
-    } & {
         id: string;
         user1Id: string;
         user2Id: string;
         updatedAt: Date;
-    })[]>;
+    }[]>;
     getMessages(dialogueId: string): Promise<({
         sender: {
             id: string;

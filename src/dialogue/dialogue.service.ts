@@ -6,7 +6,7 @@ export class DialogueService {
   private prisma = new PrismaClient();
 
   async getUserDialogues(userId: string) {
-    return await this.prisma.dialogue.findMany({
+    const dialogues = await this.prisma.dialogue.findMany({
       where: {
         OR: [
           { user1Id: userId },
@@ -23,11 +23,32 @@ export class DialogueService {
             content: true,
             createdAt: true,
             senderId: true,
+            isRead: true,
           },
         },
       },
       orderBy: { updatedAt: 'desc' },
-    });
+    })
+  
+    // Подсчёт непрочитанных сообщений для каждого диалога
+    const dialoguesWithUnread = await Promise.all(
+      dialogues.map(async (dialogue) => {
+        const unreadCount = await this.prisma.message.count({
+          where: {
+            dialogueId: dialogue.id,
+            senderId: { not: userId },
+            isRead: false,
+          },
+        })
+  
+        return {
+          ...dialogue,
+          unreadCount,
+        }
+      }),
+    )
+  
+    return dialoguesWithUnread
   }
 
   async getDialogueMessages(dialogueId: string) {
@@ -102,4 +123,6 @@ export class DialogueService {
       where: { id },
     })
   }
+
+  
 }
