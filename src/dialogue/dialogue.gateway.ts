@@ -60,10 +60,10 @@ import {
   
         
       const recipientSocket = this.onlineUsers.get(recipientId)
-      console.log(recipientSocket)
+      //console.log(recipientSocket)
       if (recipientSocket) {
         recipientSocket.emit('newMessage', message)
-        console.log(message)
+       // console.log(message)
         const dialogues = await this.dialogueService.getUserDialogues(recipientId)
         recipientSocket.emit('dialoguesList', dialogues)
       }

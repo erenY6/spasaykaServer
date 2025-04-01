@@ -46,10 +46,8 @@ let DialogueGateway = class DialogueGateway {
         }
         const recipientId = dialogue.user1Id === payload.senderId ? dialogue.user2Id : dialogue.user1Id;
         const recipientSocket = this.onlineUsers.get(recipientId);
-        console.log(recipientSocket);
         if (recipientSocket) {
             recipientSocket.emit('newMessage', message);
-            console.log(message);
             const dialogues = await this.dialogueService.getUserDialogues(recipientId);
             recipientSocket.emit('dialoguesList', dialogues);
         }

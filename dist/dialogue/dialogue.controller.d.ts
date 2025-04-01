@@ -7,18 +7,18 @@ export declare class DialogueController {
         user1: {
             id: string;
             name: string;
-            surname: string | null;
             email: string | null;
             phone: string | null;
+            surname: string | null;
             password: string;
             avatar: string | null;
         };
         user2: {
             id: string;
             name: string;
-            surname: string | null;
             email: string | null;
             phone: string | null;
+            surname: string | null;
             password: string;
             avatar: string | null;
         };
@@ -37,9 +37,9 @@ export declare class DialogueController {
         sender: {
             id: string;
             name: string;
-            surname: string | null;
             email: string | null;
             phone: string | null;
+            surname: string | null;
             password: string;
             avatar: string | null;
         };
