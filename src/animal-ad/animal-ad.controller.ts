@@ -5,7 +5,8 @@ import {
   UploadedFiles,
   UseInterceptors,
   Body,
-  Param
+  Param,
+  Delete
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -30,12 +31,11 @@ export class AnimalAdController {
     @UploadedFiles() files: Express.Multer.File[],
     @Body() body
   ) {
-    const { name, gender, age, info1, info2, address, description, fullDesc, authorId, tagIds } = body;
+    const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds } = body;
     
 
     const imageUrls = files.map(file => `/images/${file.filename}`);
 
-    // Теги могут приходить как строка через запятую
     const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || []
 
 
@@ -44,6 +44,7 @@ export class AnimalAdController {
       gender,
       age,
       address,
+      coordinates,
       info1,
       info2,
       description,
@@ -67,5 +68,9 @@ export class AnimalAdController {
 @Get('by-author/:authorId')
 async getAdsByAuthor(@Param('authorId') authorId: string) {
   return await this.animalAdService.getAdsByAuthor(authorId);
+}
+@Delete(':id')
+async deleteAdById(@Param('id') id: string){
+  return this.animalAdService.deleteAdById(id)
 }
 }

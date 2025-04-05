@@ -24,7 +24,7 @@ let AnimalAdController = class AnimalAdController {
         this.animalAdService = animalAdService;
     }
     async uploadFiles(files, body) {
-        const { name, gender, age, info1, info2, address, description, fullDesc, authorId, tagIds } = body;
+        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds } = body;
         const imageUrls = files.map(file => `/images/${file.filename}`);
         const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
         return await this.animalAdService.createAd({
@@ -32,6 +32,7 @@ let AnimalAdController = class AnimalAdController {
             gender,
             age,
             address,
+            coordinates,
             info1,
             info2,
             description,
@@ -49,6 +50,9 @@ let AnimalAdController = class AnimalAdController {
     }
     async getAdsByAuthor(authorId) {
         return await this.animalAdService.getAdsByAuthor(authorId);
+    }
+    async deleteAdById(id) {
+        return this.animalAdService.deleteAdById(id);
     }
 };
 exports.AnimalAdController = AnimalAdController;
@@ -89,6 +93,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnimalAdController.prototype, "getAdsByAuthor", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AnimalAdController.prototype, "deleteAdById", null);
 exports.AnimalAdController = AnimalAdController = __decorate([
     (0, common_1.Controller)('animal-ad'),
     __metadata("design:paramtypes", [animal_ad_service_1.AnimalAdService])

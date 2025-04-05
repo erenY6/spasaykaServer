@@ -27,6 +27,7 @@ export declare class AnimalAdController {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -59,6 +60,7 @@ export declare class AnimalAdController {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -91,6 +93,7 @@ export declare class AnimalAdController {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -123,6 +126,7 @@ export declare class AnimalAdController {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -130,4 +134,18 @@ export declare class AnimalAdController {
         createdAt: Date;
         authorId: string | null;
     })[]>;
+    deleteAdById(id: string): Promise<{
+        id: string;
+        name: string;
+        gender: string;
+        age: string;
+        address: string | null;
+        coordinates: string | null;
+        info1: string | null;
+        info2: string | null;
+        description: string | null;
+        fullDesc: string | null;
+        createdAt: Date;
+        authorId: string | null;
+    }>;
 }

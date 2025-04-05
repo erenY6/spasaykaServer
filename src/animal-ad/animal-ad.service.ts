@@ -12,10 +12,11 @@ export class AnimalAdService {
     info1?: string;
     info2?: string;
     address?: string;
+    coordinates?: string;
     description?: string;
     fullDesc?: string;
-    imageUrls: string[]; // массив путей картинок
-    tagIds: string[]; // массив ID тегов
+    imageUrls: string[]; 
+    tagIds: string[]; 
     authorId: string;
   }) {
     return await this.prisma.animalAd.create({
@@ -26,6 +27,7 @@ export class AnimalAdService {
         info1: data.info1,
         info2: data.info2,
         address: data.address,
+        coordinates: data.coordinates,
         description: data.description,
         fullDesc: data.fullDesc,
         author: { connect: { id: data.authorId } },
@@ -62,6 +64,15 @@ export class AnimalAdService {
         tags: true,
         author: true
       }
+    })
+  }
+
+  async deleteAdById(id: string) {
+    await this.prisma.animalTag.deleteMany({
+      where: { id: id },
+    })
+    return await this.prisma.animalAd.delete({
+      where: { id }
     })
   }
 

@@ -7,6 +7,7 @@ export declare class AnimalAdService {
         info1?: string;
         info2?: string;
         address?: string;
+        coordinates?: string;
         description?: string;
         fullDesc?: string;
         imageUrls: string[];
@@ -37,6 +38,7 @@ export declare class AnimalAdService {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -69,6 +71,7 @@ export declare class AnimalAdService {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -101,6 +104,7 @@ export declare class AnimalAdService {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;
@@ -108,6 +112,20 @@ export declare class AnimalAdService {
         createdAt: Date;
         authorId: string | null;
     }) | null>;
+    deleteAdById(id: string): Promise<{
+        id: string;
+        name: string;
+        gender: string;
+        age: string;
+        address: string | null;
+        coordinates: string | null;
+        info1: string | null;
+        info2: string | null;
+        description: string | null;
+        fullDesc: string | null;
+        createdAt: Date;
+        authorId: string | null;
+    }>;
     getAdsByAuthor(authorId: string): Promise<({
         images: {
             id: string;
@@ -133,6 +151,7 @@ export declare class AnimalAdService {
         gender: string;
         age: string;
         address: string | null;
+        coordinates: string | null;
         info1: string | null;
         info2: string | null;
         description: string | null;

@@ -20,6 +20,7 @@ let AnimalAdService = class AnimalAdService {
                 info1: data.info1,
                 info2: data.info2,
                 address: data.address,
+                coordinates: data.coordinates,
                 description: data.description,
                 fullDesc: data.fullDesc,
                 author: { connect: { id: data.authorId } },
@@ -54,6 +55,14 @@ let AnimalAdService = class AnimalAdService {
                 tags: true,
                 author: true
             }
+        });
+    }
+    async deleteAdById(id) {
+        await this.prisma.animalTag.deleteMany({
+            where: { id: id },
+        });
+        return await this.prisma.animalAd.delete({
+            where: { id }
         });
     }
     async getAdsByAuthor(authorId) {
