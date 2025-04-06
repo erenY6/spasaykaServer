@@ -54,6 +54,30 @@ let AnimalAdController = class AnimalAdController {
     async deleteAdById(id) {
         return this.animalAdService.deleteAdById(id);
     }
+    async updateAd(id, files, body) {
+        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, tagIds } = body;
+        const existing = body.existingImages
+            ? JSON.parse(body.existingImages)
+            : [];
+        const imageUrls = [
+            ...existing,
+            ...files.map(file => `/images/${file.filename}`)
+        ];
+        const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
+        return await this.animalAdService.updateAd(id, {
+            name,
+            gender,
+            age,
+            info1,
+            info2,
+            address,
+            coordinates,
+            description,
+            fullDesc,
+            tagIds: tagIdArray,
+            imageUrls
+        });
+    }
 };
 exports.AnimalAdController = AnimalAdController;
 __decorate([
@@ -100,6 +124,24 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnimalAdController.prototype, "deleteAdById", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images', 5, {
+        storage: (0, multer_1.diskStorage)({
+            destination: './images',
+            filename: (req, file, cb) => {
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+                cb(null, uniqueSuffix + (0, path_1.extname)(file.originalname));
+            }
+        }),
+    })),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.UploadedFiles)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array, Object]),
+    __metadata("design:returntype", Promise)
+], AnimalAdController.prototype, "updateAd", null);
 exports.AnimalAdController = AnimalAdController = __decorate([
     (0, common_1.Controller)('animal-ad'),
     __metadata("design:paramtypes", [animal_ad_service_1.AnimalAdService])

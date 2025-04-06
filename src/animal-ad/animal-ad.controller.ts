@@ -6,7 +6,8 @@ import {
   UseInterceptors,
   Body,
   Param,
-  Delete
+  Delete,
+  Put
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -73,4 +74,50 @@ async getAdsByAuthor(@Param('authorId') authorId: string) {
 async deleteAdById(@Param('id') id: string){
   return this.animalAdService.deleteAdById(id)
 }
+
+@Put(':id')
+@UseInterceptors(FilesInterceptor('images', 5, {
+  storage: diskStorage({
+    destination: './images',
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      cb(null, uniqueSuffix + extname(file.originalname));
+    }
+  }),
+}))
+async updateAd(
+  @Param('id') id: string,
+  @UploadedFiles() files: Express.Multer.File[],
+  @Body() body,
+) {
+  const {
+    name, gender, age, info1, info2, address,
+    coordinates, description, fullDesc, tagIds
+  } = body;
+
+  const existing = body.existingImages
+  ? JSON.parse(body.existingImages)
+  : []
+
+const imageUrls = [
+  ...existing,
+  ...files.map(file => `/images/${file.filename}`)
+]
+  const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
+
+  return await this.animalAdService.updateAd(id, {
+    name,
+    gender,
+    age,
+    info1,
+    info2,
+    address,
+    coordinates,
+    description,
+    fullDesc,
+    tagIds: tagIdArray,
+    imageUrls
+  });
+}
+
 }

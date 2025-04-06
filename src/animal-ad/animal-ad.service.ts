@@ -86,4 +86,52 @@ export class AnimalAdService {
       }
     });
   }
+
+  async updateAd(id: string, data: {
+    name: string;
+    gender: string;
+    age: string;
+    info1?: string;
+    info2?: string;
+    address?: string | null;
+    coordinates?: string | null;
+    description?: string;
+    fullDesc?: string;
+    tagIds: string[];
+    imageUrls: string[];
+  }) {
+    await this.prisma.animalImage.deleteMany({ where: { adId: id } });
+    await this.prisma.animalAd.update({
+      where: { id },
+      data: {
+        tags: { set: [] } 
+      }
+    });
+  
+    return await this.prisma.animalAd.update({
+      where: { id },
+      data: {
+        name: data.name,
+        gender: data.gender,
+        age: data.age,
+        info1: data.info1,
+        info2: data.info2,
+        address: data.address,
+        coordinates: data.coordinates,
+        description: data.description,
+        fullDesc: data.fullDesc,
+        tags: {
+          connect: data.tagIds.map(id => ({ id }))
+        },
+        images: {
+          create: data.imageUrls.map(url => ({ url }))
+        }
+      },
+      include: {
+        tags: true,
+        images: true,
+        author: true
+      }
+    });
+  }
 }
