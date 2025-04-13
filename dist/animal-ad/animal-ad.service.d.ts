@@ -10,6 +10,10 @@ export declare class AnimalAdService {
         coordinates?: string;
         description?: string;
         fullDesc?: string;
+        visibleName?: boolean;
+        visibleSurname?: boolean;
+        visibleEmail?: boolean;
+        visiblePhone?: boolean;
         imageUrls: string[];
         tagIds: string[];
         authorId: string;
@@ -45,6 +49,10 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
     getAds(): Promise<({
         images: {
@@ -78,6 +86,10 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     })[]>;
     getAdById(id: string): Promise<({
         images: {
@@ -111,6 +123,10 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }) | null>;
     deleteAdById(id: string): Promise<{
         id: string;
@@ -125,6 +141,10 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
     getAdsByAuthor(authorId: string): Promise<({
         images: {
@@ -158,6 +178,10 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     })[]>;
     updateAd(id: string, data: {
         name: string;
@@ -169,6 +193,10 @@ export declare class AnimalAdService {
         coordinates?: string | null;
         description?: string;
         fullDesc?: string;
+        visibleName?: boolean;
+        visibleSurname?: boolean;
+        visibleEmail?: boolean;
+        visiblePhone?: boolean;
         tagIds: string[];
         imageUrls: string[];
     }): Promise<{
@@ -203,5 +231,9 @@ export declare class AnimalAdService {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
 }

@@ -34,6 +34,10 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
     getAds(): Promise<({
         images: {
@@ -67,6 +71,10 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     })[]>;
     getAdById(id: string): Promise<({
         images: {
@@ -100,6 +108,10 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }) | null>;
     getAdsByAuthor(authorId: string): Promise<({
         images: {
@@ -133,6 +145,10 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     })[]>;
     deleteAdById(id: string): Promise<{
         id: string;
@@ -147,6 +163,10 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
     updateAd(id: string, files: Express.Multer.File[], body: any): Promise<{
         images: {
@@ -180,5 +200,9 @@ export declare class AnimalAdController {
         fullDesc: string | null;
         createdAt: Date;
         authorId: string | null;
+        visibleName: boolean | null;
+        visibleSurname: boolean | null;
+        visibleEmail: boolean | null;
+        visiblePhone: boolean | null;
     }>;
 }

@@ -32,7 +32,7 @@ export class AnimalAdController {
     @UploadedFiles() files: Express.Multer.File[],
     @Body() body
   ) {
-    const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds } = body;
+    const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds, visibleName,visibleSurname, visibleEmail, visiblePhone } = body;
     
 
     const imageUrls = files.map(file => `/images/${file.filename}`);
@@ -52,7 +52,11 @@ export class AnimalAdController {
       fullDesc,
       authorId,
       imageUrls,
-      tagIds: tagIdArray
+      tagIds: tagIdArray,
+      visibleName,
+      visibleSurname,
+      visibleEmail,
+      visiblePhone
     });
   }
 
@@ -92,7 +96,10 @@ async updateAd(
 ) {
   const {
     name, gender, age, info1, info2, address,
-    coordinates, description, fullDesc, tagIds
+    coordinates, description, fullDesc, tagIds,visibleName,
+    visibleSurname,
+    visibleEmail,
+    visiblePhone
   } = body;
 
   const existing = body.existingImages
@@ -116,7 +123,11 @@ const imageUrls = [
     description,
     fullDesc,
     tagIds: tagIdArray,
-    imageUrls
+    imageUrls,
+    visibleName,
+      visibleSurname,
+      visibleEmail,
+      visiblePhone
   });
 }
 

@@ -15,6 +15,10 @@ export class AnimalAdService {
     coordinates?: string;
     description?: string;
     fullDesc?: string;
+    visibleName?: boolean;
+    visibleSurname?: boolean;
+    visibleEmail?: boolean;
+    visiblePhone?: boolean;
     imageUrls: string[]; 
     tagIds: string[]; 
     authorId: string;
@@ -29,6 +33,10 @@ export class AnimalAdService {
         address: data.address,
         coordinates: data.coordinates,
         description: data.description,
+        visibleName: String(data.visibleName) === 'true',
+        visibleSurname: String(data.visibleSurname) === 'true',
+        visibleEmail: String(data.visibleEmail) === 'true',
+        visiblePhone: String(data.visiblePhone) === 'true',
         fullDesc: data.fullDesc,
         author: { connect: { id: data.authorId } },
         tags: {
@@ -97,6 +105,11 @@ export class AnimalAdService {
     coordinates?: string | null;
     description?: string;
     fullDesc?: string;
+    visibleName?: boolean;
+    visibleSurname?: boolean;
+    visibleEmail?: boolean;
+    visiblePhone?: boolean;
+
     tagIds: string[];
     imageUrls: string[];
   }) {
@@ -120,6 +133,10 @@ export class AnimalAdService {
         coordinates: data.coordinates,
         description: data.description,
         fullDesc: data.fullDesc,
+        visibleName: String(data.visibleName) === 'true',
+        visibleSurname: String(data.visibleSurname) === 'true',
+        visibleEmail: String(data.visibleEmail) === 'true',
+        visiblePhone: String(data.visiblePhone) === 'true',
         tags: {
           connect: data.tagIds.map(id => ({ id }))
         },

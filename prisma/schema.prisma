@@ -32,6 +32,10 @@ model AnimalAd {
   
   authorId       String?
   author         User?          @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  visibleName    Boolean?
+  visibleSurname    Boolean?
+  visibleEmail    Boolean?
+  visiblePhone    Boolean?
 }
 
 model AnimalImage {

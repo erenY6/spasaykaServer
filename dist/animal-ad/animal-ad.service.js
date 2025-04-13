@@ -22,6 +22,10 @@ let AnimalAdService = class AnimalAdService {
                 address: data.address,
                 coordinates: data.coordinates,
                 description: data.description,
+                visibleName: String(data.visibleName) === 'true',
+                visibleSurname: String(data.visibleSurname) === 'true',
+                visibleEmail: String(data.visibleEmail) === 'true',
+                visiblePhone: String(data.visiblePhone) === 'true',
                 fullDesc: data.fullDesc,
                 author: { connect: { id: data.authorId } },
                 tags: {
@@ -95,6 +99,10 @@ let AnimalAdService = class AnimalAdService {
                 coordinates: data.coordinates,
                 description: data.description,
                 fullDesc: data.fullDesc,
+                visibleName: String(data.visibleName) === 'true',
+                visibleSurname: String(data.visibleSurname) === 'true',
+                visibleEmail: String(data.visibleEmail) === 'true',
+                visiblePhone: String(data.visiblePhone) === 'true',
                 tags: {
                     connect: data.tagIds.map(id => ({ id }))
                 },

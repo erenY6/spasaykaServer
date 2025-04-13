@@ -24,7 +24,7 @@ let AnimalAdController = class AnimalAdController {
         this.animalAdService = animalAdService;
     }
     async uploadFiles(files, body) {
-        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds } = body;
+        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, authorId, tagIds, visibleName, visibleSurname, visibleEmail, visiblePhone } = body;
         const imageUrls = files.map(file => `/images/${file.filename}`);
         const tagIdArray = typeof body.tags === 'string' ? body.tags.split(',') : body.tags || [];
         return await this.animalAdService.createAd({
@@ -39,7 +39,11 @@ let AnimalAdController = class AnimalAdController {
             fullDesc,
             authorId,
             imageUrls,
-            tagIds: tagIdArray
+            tagIds: tagIdArray,
+            visibleName,
+            visibleSurname,
+            visibleEmail,
+            visiblePhone
         });
     }
     async getAds() {
@@ -55,7 +59,7 @@ let AnimalAdController = class AnimalAdController {
         return this.animalAdService.deleteAdById(id);
     }
     async updateAd(id, files, body) {
-        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, tagIds } = body;
+        const { name, gender, age, info1, info2, address, coordinates, description, fullDesc, tagIds, visibleName, visibleSurname, visibleEmail, visiblePhone } = body;
         const existing = body.existingImages
             ? JSON.parse(body.existingImages)
             : [];
@@ -75,7 +79,11 @@ let AnimalAdController = class AnimalAdController {
             description,
             fullDesc,
             tagIds: tagIdArray,
-            imageUrls
+            imageUrls,
+            visibleName,
+            visibleSurname,
+            visibleEmail,
+            visiblePhone
         });
     }
 };
